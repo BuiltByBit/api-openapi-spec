@@ -8,7 +8,7 @@ info:
   termsOfService: 'https://builtbybit.com/wiki/terms'
   contact:
     url: 'https://builtbybit.com/ticket'
-    name: BuiltByBit (test)
+    name: BuiltByBit
 servers:
   - description: BuiltByBit
     url: 'https://api.builtbybit.com/'
