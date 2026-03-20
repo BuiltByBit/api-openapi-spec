@@ -16,3 +16,10 @@ jobs:
           token: ${{ secrets.DISPATCH_TOKEN }}
           repository: BuiltByBit/api-wrapper-codegen-php
           event-type: spec-updated
+
+      - name: Trigger Java Wrapper
+        uses: peter-evans/repository-dispatch@v2
+        with:
+          token: ${{ secrets.DISPATCH_TOKEN }}
+          repository: BuiltByBit/api-wrapper-codegen-java
+          event-type: spec-updated
