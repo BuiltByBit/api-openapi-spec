@@ -24,9 +24,9 @@ jobs:
           repository: BuiltByBit/api-wrapper-codegen-java
           event-type: spec-updated
 
-      - name: Trigger NodeJS Wrapper
+      - name: Trigger JS Wrapper
         uses: peter-evans/repository-dispatch@v2
         with:
           token: ${{ secrets.DISPATCH_TOKEN }}
-          repository: BuiltByBit/api-wrapper-codegen-nodejs
+          repository: BuiltByBit/api-wrapper-codegen-js
           event-type: spec-updated
