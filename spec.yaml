@@ -16,6 +16,7 @@ tags:
   - name: free
   - name: global
   - name: oauth2
+  - name: resources/buyer
   - name: resources/creator
   - name: resources/discovery
 paths:
@@ -923,6 +924,421 @@ paths:
         - resources/creator
       security:
         - token: []
+  /v2/resources/creator/resources:
+    get:
+      summary: Fetch a list of your resources
+      tags:
+        - resources/creator
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    x-stoplight:
+                      id: v5r96kr9dqwuo
+                    enum:
+                      - success
+                  data:
+                    type: object
+                    x-stoplight:
+                      id: dabofrq969z2z
+                    properties:
+                      resources:
+                        type: array
+                        x-stoplight:
+                          id: d0f9nn42b377b
+                        items:
+                          $ref: '#/components/schemas/Resource'
+                      stats:
+                        $ref: '#/components/schemas/ListStats'
+      operationId: get-v2-resources-creator-resources
+      x-stoplight:
+        id: 103bx8jeqlgb9
+      security:
+        - token: []
+      parameters:
+        - schema:
+            type: array
+          in: query
+          name: resource_ids
+          description: A comma-separated list of resource IDs to filter on. No filter is applied if empty.
+          style: form
+  /v2/resources/creator/purchases:
+    get:
+      summary: Fetch a list of your resources' purchases
+      tags:
+        - resources/creator
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    x-stoplight:
+                      id: ijrkvq7e55lk7
+                    enum:
+                      - success
+                  data:
+                    type: object
+                    x-stoplight:
+                      id: rn50qk5cictkz
+                    properties:
+                      purchases:
+                        type: array
+                        x-stoplight:
+                          id: okjk5uwg60bob
+                        items:
+                          $ref: '#/components/schemas/Purchase'
+                      stats:
+                        $ref: '#/components/schemas/ListStats'
+      operationId: get-v2-resources-creator-purchases
+      x-stoplight:
+        id: b84urq8cyo0x5
+      security:
+        - token: []
+      parameters:
+        - schema:
+            type: array
+          in: query
+          name: resource_ids
+          description: A comma-separated list of resource IDs to filter on. No filter is applied if empty.
+          style: form
+  /v2/resources/creator/licenses:
+    get:
+      summary: Fetch a list of your resources' licenses
+      tags:
+        - resources/creator
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    x-stoplight:
+                      id: yued3506i8yd7
+                    enum:
+                      - success
+                  data:
+                    type: object
+                    x-stoplight:
+                      id: cgzp5shxla1bp
+                    properties:
+                      licenses:
+                        x-stoplight:
+                          id: 86775q3w9qsjf
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/License'
+                      stats:
+                        $ref: '#/components/schemas/ListStats'
+      operationId: get-v2-resources-creator-licenses
+      x-stoplight:
+        id: rcej7mxxk7qj0
+      security:
+        - token: []
+      parameters:
+        - schema:
+            type: array
+          in: query
+          name: resource_ids
+          description: A comma-separated list of resource IDs to filter on. No filter is applied if empty.
+          style: form
+  /v2/resources/creator/versions:
+    get:
+      summary: Fetch a list of your resources' versions
+      tags:
+        - resources/creator
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    x-stoplight:
+                      id: cb6g4wyeuti1z
+                    enum:
+                      - success
+                  data:
+                    type: object
+                    x-stoplight:
+                      id: i0n4ifg6mb2ap
+                    properties:
+                      versions:
+                        type: array
+                        x-stoplight:
+                          id: 5xsmn3zl7ql9j
+                        items:
+                          $ref: '#/components/schemas/Version'
+                      stats:
+                        $ref: '#/components/schemas/ListStats'
+      operationId: get-v2-resources-creator-versions
+      x-stoplight:
+        id: n8na44g7vgvh8
+      parameters:
+        - schema:
+            type: array
+          in: query
+          name: resource_ids
+          description: A comma-separated list of resource IDs to filter on. No filter is applied if empty.
+          style: form
+      security:
+        - token: []
+  /v2/resources/creator/updates:
+    get:
+      summary: Fetch a list of your resource's updates
+      tags:
+        - resources/creator
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    x-stoplight:
+                      id: czmpzo1mlvgl6
+                    enum:
+                      - success
+                  data:
+                    type: object
+                    x-stoplight:
+                      id: 26us85leinnbx
+                    properties:
+                      updates:
+                        type: array
+                        x-stoplight:
+                          id: hqwtf5ifmumfm
+                        items:
+                          $ref: '#/components/schemas/Update'
+                      stats:
+                        $ref: '#/components/schemas/ListStats'
+      operationId: get-v2-resources-creator-updates
+      x-stoplight:
+        id: r8yez7mkav2pj
+      parameters:
+        - schema:
+            type: array
+          in: query
+          description: A comma-separated list of resource IDs to filter on. No filter is applied if empty.
+          name: resource_ids
+          style: form
+      security:
+        - token: []
+  /v2/resources/creator/addons:
+    get:
+      summary: Fetch a list of your resources' addons
+      tags:
+        - resources/creator
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    x-stoplight:
+                      id: d29obwisl899k
+                    enum:
+                      - success
+                  data:
+                    type: object
+                    x-stoplight:
+                      id: tu2owy0jz4gyk
+                    properties:
+                      addons:
+                        type: array
+                        x-stoplight:
+                          id: k8k4v8oottf7n
+                        items:
+                          $ref: '#/components/schemas/Addon'
+                      stats:
+                        $ref: '#/components/schemas/ListStats'
+      operationId: get-v2-resources-creator-addons
+      x-stoplight:
+        id: s7sgtrw72qto1
+      security:
+        - token: []
+      parameters:
+        - schema:
+            type: array
+          in: query
+          description: A comma-separated list of resource IDs to filter on. No filter is applied if empty.
+          name: resource_ids
+          style: form
+  /v2/resources/creator/bundles:
+    get:
+      summary: Fetch a list of your bundles
+      tags:
+        - resources/creator
+      responses:
+        '200':
+          description: OK
+          headers: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    x-stoplight:
+                      id: uekjh2zy30qos
+                    enum:
+                      - success
+                  data:
+                    type: object
+                    x-stoplight:
+                      id: ximx0zfmcd10v
+                    properties:
+                      bundles:
+                        type: array
+                        x-stoplight:
+                          id: imgfa19670je6
+                        items:
+                          $ref: '#/components/schemas/Bundle'
+                      stats:
+                        $ref: '#/components/schemas/ListStats'
+      operationId: get-v2-resources-creator-bundles
+      x-stoplight:
+        id: 8rr5mssb968xc
+      security:
+        - token: []
+      parameters: []
+  /v2/resources/creator/sale-events:
+    get:
+      summary: Fetch a list of your sale events
+      tags:
+        - resources/creator
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    x-stoplight:
+                      id: ag6mqz29r275c
+                    enum:
+                      - success
+                  data:
+                    type: object
+                    x-stoplight:
+                      id: qeoxpyy2ztz5t
+                    properties:
+                      sale-events:
+                        type: array
+                        x-stoplight:
+                          id: o4a7auwr3061f
+                        items:
+                          $ref: '#/components/schemas/SaleEvent'
+                      stats:
+                        $ref: '#/components/schemas/ListStats'
+      operationId: get-v2-resources-creator-sale-events
+      x-stoplight:
+        id: e153a7jk4duox
+      security:
+        - token: []
+  /v2/resources/creator/reviews:
+    get:
+      summary: Fetch a list of your resources' reviews
+      tags:
+        - resources/creator
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    x-stoplight:
+                      id: gq3h8u5vh5xj4
+                    enum:
+                      - success
+                  data:
+                    type: object
+                    x-stoplight:
+                      id: 60x4ap13u6qz3
+                    properties:
+                      reviews:
+                        type: array
+                        x-stoplight:
+                          id: 3l0reizzph448
+                        items:
+                          $ref: '#/components/schemas/Review'
+                      stats:
+                        $ref: '#/components/schemas/ListStats'
+      operationId: get-v2-resources-creator-reviews
+      x-stoplight:
+        id: 2srju4vu6icgb
+      parameters:
+        - schema:
+            type: array
+          in: query
+          name: resource_ids
+          description: A comma-separated list of resource IDs to filter on. No filter is applied if empty.
+          style: form
+  /v2/resources/buyer/latest:
+    get:
+      summary: Fetches the latest versions & license information
+      tags:
+        - resources/buyer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    x-stoplight:
+                      id: xe86bnx44ra3f
+                    enum:
+                      - success
+                  data:
+                    type: object
+                    x-stoplight:
+                      id: 086gai3wsenos
+                    properties:
+                      current:
+                        $ref: '#/components/schemas/Version'
+                      latest:
+                        $ref: '#/components/schemas/Version'
+                      has_usage_rights:
+                        type: boolean
+                        x-stoplight:
+                          id: l5kjdeuasezzj
+      operationId: get-v2-resources-buyer-latest
+      x-stoplight:
+        id: z2obo5xmlssl1
+      security:
+        - token: []
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: nonce
+          description: '32 character hash provided by an anti-piracy placeholder of the NONCE type. Must be from a resource download (cannot be an addon download’s nonce, etc).'
 externalDocs:
   description: Find out more about Swagger
   url: 'http://swagger.io'
@@ -992,32 +1408,14 @@ components:
           type: integer
         last_updated_at:
           type: integer
-        currency:
-          type: string
         purchases:
           type: integer
         downloads:
           type: integer
-        list_price:
-          type: number
-          x-stoplight:
-            id: 6nvbsui4s8jl9
         cover_image_url:
           type: string
           x-stoplight:
             id: y7ga85b3lc17q
-        final_price:
-          type: number
-          x-stoplight:
-            id: b2medhzkptziy
-        final_price_formatted:
-          type: string
-          x-stoplight:
-            id: seeo2tuqppvfy
-        list_price_formatted:
-          type: string
-          x-stoplight:
-            id: 95pfh9uv4h1hb
         carousel_image_urls:
           type: array
           x-stoplight:
@@ -1034,6 +1432,10 @@ components:
           type: number
           x-stoplight:
             id: h72cfjwc1hvtw
+        ListPrice:
+          $ref: '#/components/schemas/Price'
+        FinalPrice:
+          $ref: '#/components/schemas/Price'
         SaleEventEntry:
           $ref: '#/components/schemas/SaleEventEntry'
         Creator:
@@ -1140,10 +1542,10 @@ components:
           type: string
           x-stoplight:
             id: stsa2cb4s307b
-        written_by_id:
+        reviewer_id:
           type: string
           x-stoplight:
-            id: 5s74618zab9sx
+            id: q37yrlvbloxbd
     Update:
       title: Update
       x-stoplight:
@@ -1544,26 +1946,6 @@ components:
           enum:
             - visible
             - disabled
-        list_price:
-          type: number
-          x-stoplight:
-            id: 2fdks528f64lr
-        list_price_formatted:
-          type: string
-          x-stoplight:
-            id: hzewr5kcciggw
-        final_price:
-          type: number
-          x-stoplight:
-            id: xdkooesdnx9nt
-        final_price_formatted:
-          type: string
-          x-stoplight:
-            id: q3iw5uiygxz87
-        price_currency:
-          type: string
-          x-stoplight:
-            id: ln1svamlzdy61
         display_order:
           type: integer
           x-stoplight:
@@ -1572,6 +1954,10 @@ components:
           type: boolean
           x-stoplight:
             id: 1o17r7mnuny38
+        ListPrice:
+          $ref: '#/components/schemas/Price'
+        FinalPrice:
+          $ref: '#/components/schemas/Price'
     Event:
       title: Event
       x-stoplight:
@@ -1732,6 +2118,49 @@ components:
             x-stoplight:
               id: oud9zl7csn7r6
             type: number
+    Purchase:
+      title: Purchase
+      x-stoplight:
+        id: tusa0f8v6z0ha
+      type: object
+      properties:
+        id:
+          type: string
+          x-stoplight:
+            id: 7wwg44yyl1ls0
+    Price:
+      title: Price
+      x-stoplight:
+        id: opbh0uexp7ako
+      type: object
+      properties:
+        value:
+          type: number
+          x-stoplight:
+            id: lgyl2su1du3tx
+        currency:
+          type: string
+          x-stoplight:
+            id: kix6d7k0mwkjp
+        formatted:
+          type: string
+          x-stoplight:
+            id: vajqt3ds49a6s
+      x-examples:
+        Example 1:
+          value: 5.99
+          currency: USD
+          formatted: $5.99
+    Bundle:
+      title: Bundle
+      x-stoplight:
+        id: 1yae2oj7q83n9
+      type: object
+      properties:
+        id:
+          type: string
+          x-stoplight:
+            id: 3xhww5gy29r94
   requestBodies: {}
   securitySchemes:
     token:
