@@ -1010,6 +1010,18 @@ paths:
           name: resource_ids
           description: A comma-separated list of resource IDs to filter on. No filter is applied if empty.
           style: form
+        - schema:
+            type: array
+          in: query
+          name: buyer_ids
+          style: form
+          description: A comma-separated list of buyer IDs to filter on. No filter is applied if empty
+        - schema:
+            type: array
+          in: query
+          name: external_tids
+          style: form
+          description: A comma-separated list of external transaction IDs (TIDs) to filter on. No filter is applied if empty.
   /v2/resources/creator/licenses:
     get:
       summary: Fetch a list of your resources' licenses
@@ -1339,6 +1351,103 @@ paths:
           in: query
           name: nonce
           description: '32 character hash provided by an anti-piracy placeholder of the NONCE type. Must be from a resource download (cannot be an addon download’s nonce, etc).'
+  /v2/resources/creator/coupons:
+    get:
+      summary: Fetch a list of your coupons
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    x-stoplight:
+                      id: 6k6t5t0aql779
+                    enum:
+                      - success
+                  data:
+                    type: object
+                    x-stoplight:
+                      id: cgi8gtkvkv5g9
+                    properties:
+                      coupons:
+                        type: array
+                        x-stoplight:
+                          id: gmdy0wr0qa21c
+                        items:
+                          $ref: '#/components/schemas/Coupon'
+                      stats:
+                        $ref: '#/components/schemas/ListStats'
+      operationId: get-v2-resources-creator-coupons
+      x-stoplight:
+        id: w4lgpl86j65rj
+      security:
+        - token: []
+  /v2/health:
+    get:
+      summary: Retrieve a health status
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    x-stoplight:
+                      id: vy4x4n9a0bw47
+                    enum:
+                      - success
+                  data:
+                    x-stoplight:
+                      id: ushq5yrvo220o
+                    enum:
+                      - ok
+      operationId: get-v2-health
+      x-stoplight:
+        id: t839xv25nj4y1
+      security:
+        - token: []
+  /v2/resources/creator/stores:
+    get:
+      summary: Fetch a list of your stores
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    x-stoplight:
+                      id: oqlxl2d6zg2nz
+                    enum:
+                      - success
+                  data:
+                    type: object
+                    x-stoplight:
+                      id: xzulyec1txsis
+                    properties:
+                      stores:
+                        type: array
+                        x-stoplight:
+                          id: fh80zzu7xvi6s
+                        items:
+                          $ref: '#/components/schemas/Store'
+                      stats:
+                        $ref: '#/components/schemas/ListStats'
+      operationId: get-v2-resources-creator-stores
+      x-stoplight:
+        id: z941xq9jbm1ki
+      security:
+        - token: []
 externalDocs:
   description: Find out more about Swagger
   url: 'http://swagger.io'
@@ -1385,7 +1494,7 @@ components:
             registered_at: string
           '': string
       description: |-
-        Supported 'with' values:
+        Supported 'with' hints:
         - 'Creator': the resource creator/owner
         - 'Category': the resource category 
         - 'Description': the resource description (rendered HTML and BBCode)
@@ -1451,7 +1560,7 @@ components:
           items:
             $ref: '#/components/schemas/Review'
         Description:
-          $ref: '#/components/schemas/Description'
+          $ref: '#/components/schemas/RichText'
         Category:
           $ref: '#/components/schemas/Category'
         Addons:
@@ -1537,15 +1646,46 @@ components:
       type: object
       properties:
         review_id:
-          type: string
+          type: integer
         resource_id:
-          type: string
+          type: integer
           x-stoplight:
             id: stsa2cb4s307b
         reviewer_id:
-          type: string
+          type: integer
           x-stoplight:
             id: q37yrlvbloxbd
+        version_id:
+          type: integer
+          x-stoplight:
+            id: bk0vuzsq5x36g
+        stars:
+          type: number
+          x-stoplight:
+            id: uhj1cq2cu1fw3
+        message:
+          type: string
+          x-stoplight:
+            id: o8kx26ggy0hnx
+        created_at:
+          type: integer
+          x-stoplight:
+            id: zql6vg2pg4z21
+        response:
+          type: string
+          x-stoplight:
+            id: tcxyqugk4m0me
+        Resource:
+          $ref: '#/components/schemas/Resource'
+        Version:
+          $ref: '#/components/schemas/Version'
+        Reviewer:
+          $ref: '#/components/schemas/Member'
+      description: |-
+        Supported 'with' hints:
+        - 'Resource': the resource this review relates to
+        - 'Version': the version this review relates to
+        - 'Reviewer': the member who gave this review
     Update:
       title: Update
       x-stoplight:
@@ -1553,11 +1693,27 @@ components:
       type: object
       properties:
         update_id:
-          type: string
+          type: integer
         resource_id:
-          type: string
+          type: integer
           x-stoplight:
             id: qhg4ucudmv0xy
+        created_at:
+          type: integer
+          x-stoplight:
+            id: pk4kyw7aqvu2t
+        title:
+          type: string
+          x-stoplight:
+            id: ttty2nc1hjun1
+        Description:
+          $ref: '#/components/schemas/RichText'
+        Resource:
+          $ref: '#/components/schemas/Resource'
+      description: |-
+        Supported 'with' hints:
+        - 'Resource': the resource this update relates to
+        - 'Description': the rendered description of the update
     Version:
       title: Version
       x-stoplight:
@@ -1565,11 +1721,36 @@ components:
       type: object
       properties:
         version_id:
-          type: string
-        resource_id:
+          type: integer
+        version_string:
           type: string
           x-stoplight:
+            id: 3qnk9id9sjg19
+        resource_id:
+          type: integer
+          x-stoplight:
             id: 45vrbew3ivt8o
+        created_at:
+          type: integer
+          x-stoplight:
+            id: lps1yiijixnxy
+        download_count:
+          type: integer
+          x-stoplight:
+            id: s1c2g2ascd8qo
+        review_count:
+          type: integer
+          x-stoplight:
+            id: xowzon45piiq8
+        review_average:
+          type: number
+          x-stoplight:
+            id: nmri97ii2j57m
+        Resource:
+          $ref: '#/components/schemas/Resource'
+      description: |-
+        Supported 'with' hints:
+        - 'Resource': the resource this version relates to
     Filter:
       title: Filter
       x-stoplight:
@@ -1692,20 +1873,6 @@ components:
           type: string
           x-stoplight:
             id: vyhp69mlih9or
-    Description:
-      title: Description
-      x-stoplight:
-        id: t4fr7ogjm9zkt
-      type: object
-      properties:
-        html:
-          type: string
-          x-stoplight:
-            id: xoe2x54v4o8ju
-        bbcode:
-          type: string
-          x-stoplight:
-            id: miylq4pxfxay5
     Empty:
       title: Empty
       x-stoplight:
@@ -1856,6 +2023,10 @@ components:
           type: integer
           x-stoplight:
             id: 88psm3zjyyfxf
+        buyer_id:
+          type: integer
+          x-stoplight:
+            id: 1dglyy2qk4hcr
         permanent:
           type: boolean
           x-stoplight:
@@ -1878,6 +2049,12 @@ components:
           description: Only respected when permanent = `false`.
         Resource:
           $ref: '#/components/schemas/Resource'
+        Buyer:
+          $ref: '#/components/schemas/Member'
+      description: |-
+        Supported 'with' hints:
+        - 'Resource': the resource this license is for, if content_type = 'resource'
+        - 'Buyer': the buyer this license is for
     Category:
       title: Category
       x-stoplight:
@@ -2123,16 +2300,85 @@ components:
       x-stoplight:
         id: tusa0f8v6z0ha
       type: object
+      description: |-
+        Supported 'with' hints:
+        - 'Buyer': the buyer of the purchase
+        - 'Seller': the seller of the purchase
+        - 'Resource': the resource purchased, if content_type = 'resource'
+        - 'Addon': the addon purchased, if content_type = 'addon'
       properties:
-        id:
-          type: string
+        purchase_id:
+          type: integer
           x-stoplight:
             id: 7wwg44yyl1ls0
+        content_type:
+          type: string
+          x-stoplight:
+            id: 6kdti5vhkioid
+        content_id:
+          type: integer
+          x-stoplight:
+            id: i35xtukh4zgs7
+        buyer_id:
+          type: integer
+          x-stoplight:
+            id: egf9fdv06ke62
+        seller_id:
+          type: integer
+          x-stoplight:
+            id: 5plqfjghvk5yu
+        created_at:
+          type: integer
+          x-stoplight:
+            id: 29vj36f5rq025
+        validated_at:
+          type: integer
+          x-stoplight:
+            id: t7a5p8m6jjvmd
+        bundle_id:
+          type: integer
+          x-stoplight:
+            id: dk4wb0qnfl0mc
+        sale_event_id:
+          type: integer
+          x-stoplight:
+            id: r2euyx78tm845
+        external_tid:
+          type: string
+          x-stoplight:
+            id: 26r5hgmk50kl4
+        gateway:
+          type: string
+          x-stoplight:
+            id: mi5xu1o7brg2e
+        ListPrice:
+          $ref: '#/components/schemas/Price'
+        FinalPrice:
+          $ref: '#/components/schemas/Price'
+        PlatformFee:
+          $ref: '#/components/schemas/Price'
+        AdFeePayment:
+          $ref: '#/components/schemas/Price'
+        AdFeeCredit:
+          $ref: '#/components/schemas/Price'
+        Resource:
+          $ref: '#/components/schemas/Resource'
+        Addon:
+          $ref: '#/components/schemas/Addon'
+        Buyer:
+          $ref: '#/components/schemas/Member'
+        Seller:
+          $ref: '#/components/schemas/Member'
     Price:
       title: Price
       x-stoplight:
         id: opbh0uexp7ako
       type: object
+      x-examples:
+        Example 1:
+          value: 5.99
+          currency: USD
+          formatted: $5.99
       properties:
         value:
           type: number
@@ -2142,25 +2388,151 @@ components:
           type: string
           x-stoplight:
             id: kix6d7k0mwkjp
+          description: The currency code (ISO 4217) of the currency.
         formatted:
           type: string
           x-stoplight:
             id: vajqt3ds49a6s
-      x-examples:
-        Example 1:
-          value: 5.99
-          currency: USD
-          formatted: $5.99
+          description: 'A formatted version of the value, including any prefix/postfix currency symbols.'
     Bundle:
       title: Bundle
       x-stoplight:
         id: 1yae2oj7q83n9
       type: object
       properties:
-        id:
-          type: string
+        bundle_id:
+          type: integer
           x-stoplight:
             id: 3xhww5gy29r94
+        user_id:
+          type: integer
+          x-stoplight:
+            id: ljzj9jm5g2b4q
+        title:
+          type: string
+          x-stoplight:
+            id: pmysaems1oktd
+        description:
+          type: string
+          x-stoplight:
+            id: bl1xflhnwb5k7
+        discount:
+          type: number
+          x-stoplight:
+            id: zr6inlgb151o4
+        created_at:
+          type: integer
+          x-stoplight:
+            id: qt870pthbkpi5
+    RichText:
+      title: RichText
+      x-stoplight:
+        id: 4rh8tz6ddhmvy
+      type: object
+      properties:
+        html:
+          type: string
+          x-stoplight:
+            id: fwudbu9soz231
+        bbcode:
+          type: string
+          x-stoplight:
+            id: 05fl5g2eiibgc
+    Coupon:
+      title: Coupon
+      x-stoplight:
+        id: oq6kmi79u07gh
+      type: object
+      properties:
+        coupon_id:
+          type: integer
+          x-stoplight:
+            id: ywy5yv57y17hd
+        user_id:
+          type: integer
+          x-stoplight:
+            id: xtkixiuqlripm
+        label:
+          type: string
+          x-stoplight:
+            id: fmplkgfefexgn
+          description: This is the code a buyer would enter at checkout.
+        discount:
+          type: number
+          x-stoplight:
+            id: cjika9b98eewb
+          description: 'The discount to apply. Either a fixed value, or a decimal percent. Depends on the ''percent'' field.'
+        percent:
+          type: boolean
+          x-stoplight:
+            id: zz8j0s73zmv58
+          description: "If true, the 'discount' field represents a decimal percentage.\r\nIf false, the 'discount' field represents an absolute $ USD value."
+        all_content_types:
+          type: array
+          x-stoplight:
+            id: cw5y2dk2wgcbh
+          description: ' A list of content types for which this coupon code applies to without requiring an entry. Eg. if you created the coupon with the ''All resources'' option selected, this list will include "resource".'
+          items:
+            x-stoplight:
+              id: zcl6z77un0g44
+            type: string
+        created_at:
+          type: integer
+          x-stoplight:
+            id: 1hlqghsid96bm
+          description: A UNIX timestamp.
+        expires_at:
+          type: integer
+          x-stoplight:
+            id: zeyznolkvpwx6
+          description: A UNIX timestamp.
+        max_uses:
+          type: integer
+          x-stoplight:
+            id: xe7k7xibddz5o
+        max_per_user_uses:
+          type: integer
+          x-stoplight:
+            id: l1bwpxrywpxw6
+        uses:
+          type: integer
+          x-stoplight:
+            id: 8q8vmueovxv13
+        active:
+          type: boolean
+          x-stoplight:
+            id: ys86bne29bk6e
+          description: Whether or not the coupon code is active and can still be used at checkout. Accounts for the expiry date if set and the max use limit if set.
+    Store:
+      title: Store
+      x-stoplight:
+        id: 6r7os4b6dxfn3
+      type: object
+      properties:
+        store_id:
+          type: integer
+          x-stoplight:
+            id: im80kz8aw6s98
+        user_id:
+          type: integer
+          x-stoplight:
+            id: qzjgu46wxz42g
+        name:
+          type: string
+          x-stoplight:
+            id: lukzb1v8n9pmk
+        summary:
+          type: string
+          x-stoplight:
+            id: zfcramo4v2iyt
+        is_default:
+          type: boolean
+          x-stoplight:
+            id: litijwrtjfw0o
+        created_at:
+          type: integer
+          x-stoplight:
+            id: xqf66r1k7quwk
   requestBodies: {}
   securitySchemes:
     token:
