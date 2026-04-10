@@ -1389,6 +1389,117 @@ paths:
         id: w4lgpl86j65rj
       security:
         - token: []
+    post:
+      summary: Create a new coupon
+      tags:
+        - resources/creator
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    x-stoplight:
+                      id: w75i7hsxzbudp
+                    enum:
+                      - success
+                  data:
+                    type: object
+                    x-stoplight:
+                      id: zh07tlli8qz6u
+                    properties:
+                      coupon:
+                        $ref: '#/components/schemas/Coupon'
+      operationId: post-v2-resources-creator-coupons
+      x-stoplight:
+        id: ingjrcbpj58sm
+      security:
+        - token: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - type
+                - discount
+                - label
+              properties:
+                type:
+                  type: string
+                  x-stoplight:
+                    id: ebpcmy615ngg8
+                  description: Must be 'perecent'.
+                  example: percent
+                discount:
+                  type: number
+                  x-stoplight:
+                    id: xv4k5gf53jfgg
+                  minimum: 1
+                  maximum: 50
+                label:
+                  type: string
+                  x-stoplight:
+                    id: s6epsr6fjke92
+                  description: 'The trailing part of the coupon code (without ''{user_id}-'').'
+                  example: launch
+                  minLength: 1
+                  maxLength: 15
+                do_expiry:
+                  type: boolean
+                  x-stoplight:
+                    id: pdoc0dnnykh90
+                  description: Whether or not to respect the 'expiry_date' field. No expiry date is set otherwise.
+                expiry_date:
+                  type: string
+                  x-stoplight:
+                    id: er9x4jaa1t3n9
+                limited_uses:
+                  type: boolean
+                  x-stoplight:
+                    id: z6qig1djgvedr
+                  description: Whether or not to respect the 'max_uses' field. No max use limit is set otherwise.
+                max_uses:
+                  type: integer
+                  x-stoplight:
+                    id: cn2lm5enh0zp3
+                limited_user_uses:
+                  type: boolean
+                  x-stoplight:
+                    id: vj0j5fib451fo
+                  description: Whether or not to respect the 'max_per_user_uses' field. No max uses per user limit is set otherwise.
+                max_per_user_uses:
+                  type: integer
+                  x-stoplight:
+                    id: 0spylcl8tvicf
+                all_content_types:
+                  type: array
+                  x-stoplight:
+                    id: pvu73d9h68j7l
+                  description: "If a content type is included, all of the creator's content (of that type) can be used against this coupon.\r\nSupport values include: 'resource', 'addon', and 'bundle'"
+                  items:
+                    x-stoplight:
+                      id: zit61tfbrfybo
+                    type: string
+                resources:
+                  type: string
+                  x-stoplight:
+                    id: uobqm2o7m5ld6
+                  description: A comma-separated list of resource IDs which this coupon can be used against.
+                addons:
+                  type: string
+                  x-stoplight:
+                    id: j44atw5c0nq6t
+                  description: A comma-separated list of addon IDs which this coupon can be used against.
+                bundles:
+                  type: string
+                  x-stoplight:
+                    id: wkajbxmye2hz6
+                  description: A comma-separated list of bundle IDs which this coupon can be used against.
+      description: This endpoint is currently limited to percent-based coupons with a maximum discount of 50%.
   /v2/health:
     get:
       summary: Retrieve a health status
