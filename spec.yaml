@@ -1486,6 +1486,13 @@ paths:
         id: w4lgpl86j65rj
       security:
         - token: []
+      parameters:
+        - schema:
+            type: array
+          in: query
+          name: coupon_ids
+          style: form
+          description: A comma-separated list of coupon IDs to filter on. No filter is applied if empty.
     post:
       summary: Create a new coupon
       tags:
@@ -1597,6 +1604,49 @@ paths:
                     id: wkajbxmye2hz6
                   description: A comma-separated list of bundle IDs which this coupon can be used against.
       description: This endpoint is currently limited to percent-based coupons with a maximum discount of 50%.
+  /v2/resources/creator/coupons/entries:
+    get:
+      summary: Fetch a list of your coupon entries
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    x-stoplight:
+                      id: nitz8xys8z3s7
+                    enum:
+                      - success
+                  data:
+                    type: object
+                    x-stoplight:
+                      id: 39cq90hgp2caz
+                    properties:
+                      coupon-entries:
+                        type: array
+                        x-stoplight:
+                          id: c8ssmfe0bfvbu
+                        items:
+                          $ref: '#/components/schemas/CouponEntry'
+                      stats:
+                        $ref: '#/components/schemas/ListStats'
+      operationId: get-v2-resources-creator-coupons-entries
+      x-stoplight:
+        id: wi9f7x6az41t3
+      security:
+        - token: []
+      parameters:
+        - schema:
+            type: array
+          in: query
+          name: coupon_ids
+          explode: false
+          style: form
+          description: A comma-separated list of coupon IDs to filter on. No filter is applied if empty.
   /v2/health:
     get:
       summary: Retrieve a health status
@@ -2941,6 +2991,36 @@ components:
           $ref: '#/components/schemas/Resource'
         Addon:
           $ref: '#/components/schemas/Addon'
+    CouponEntry:
+      title: CouponEntry
+      x-stoplight:
+        id: sm1s0a4gbjwm0
+      type: object
+      properties:
+        entry_id:
+          type: integer
+          x-stoplight:
+            id: ovf01ly4jmayo
+        coupon_id:
+          type: integer
+          x-stoplight:
+            id: wdk6jt2iqnk3d
+        content_type:
+          type: string
+          x-stoplight:
+            id: z2oaqbbe8v3he
+        content_id:
+          type: integer
+          x-stoplight:
+            id: fr9aarrxr96u2
+        Coupon:
+          $ref: '#/components/schemas/Coupon'
+        Resource:
+          $ref: '#/components/schemas/Resource'
+        Addon:
+          $ref: '#/components/schemas/Addon'
+        Bundle:
+          $ref: '#/components/schemas/Bundle'
   requestBodies: {}
   securitySchemes:
     token:
