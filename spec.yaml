@@ -1318,6 +1318,55 @@ paths:
         id: e153a7jk4duox
       security:
         - token: []
+      parameters:
+        - schema:
+            type: array
+          in: query
+          name: sale_event_ids
+          style: form
+          description: A comma-separated list of sale event IDs to filter on. No filter is applied if empty.
+  /v2/resources/creator/sale-events/entries:
+    get:
+      summary: Fetch a list of your sale event entries
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    x-stoplight:
+                      id: z80z5ka7hcz5a
+                    enum:
+                      - success
+                  data:
+                    type: object
+                    x-stoplight:
+                      id: acm27qokrcg9o
+                    properties:
+                      sale-event-entries:
+                        type: array
+                        x-stoplight:
+                          id: llap01rtyecv4
+                        items:
+                          $ref: '#/components/schemas/SaleEventEntry'
+                      stats:
+                        $ref: '#/components/schemas/ListStats'
+      operationId: get-v2-resources-creator-sale-events-entries
+      x-stoplight:
+        id: gxhblj0l41ot9
+      security:
+        - token: []
+      parameters:
+        - schema:
+            type: array
+          in: query
+          name: sale_event_ids
+          style: form
+          description: A comma-separated list of sale event IDs to filter on. No filter is applied if empty.
   /v2/resources/creator/reviews:
     get:
       summary: Fetch a list of your resources' reviews
@@ -1902,6 +1951,10 @@ components:
             id: 2mgm9awat9wwx
         SaleEvent:
           $ref: '#/components/schemas/SaleEvent'
+        Resource:
+          $ref: '#/components/schemas/Resource'
+        Addon:
+          $ref: '#/components/schemas/Addon'
     SaleEvent:
       title: SaleEvent
       x-stoplight:
