@@ -1233,7 +1233,55 @@ paths:
         id: 8rr5mssb968xc
       security:
         - token: []
-      parameters: []
+      parameters:
+        - schema:
+            type: array
+          in: query
+          name: bundle_ids
+          description: A comma-separated list of bundle IDs to filter on. No filter is applied if empty.
+          style: form
+  /v2/resources/creator/bundles/entries:
+    get:
+      summary: Fetch a list of your bundle entries
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    x-stoplight:
+                      id: gs33hjg02zv6t
+                    enum:
+                      - success
+                  data:
+                    type: object
+                    x-stoplight:
+                      id: qzs1pa77rt41m
+                    properties:
+                      bundle-entries:
+                        type: array
+                        x-stoplight:
+                          id: vv5jzan2ckowd
+                        items:
+                          $ref: '#/components/schemas/BundleEntry'
+                      stats:
+                        $ref: '#/components/schemas/ListStats'
+      operationId: get-v2-resources-creator-bundles-entries
+      x-stoplight:
+        id: ppk1s05ia84fa
+      security:
+        - token: []
+      parameters:
+        - schema:
+            type: array
+          in: query
+          name: bundle_ids
+          description: A comma-separated list of bundle IDs to filter on. No filter is applied if empty.
+          style: form
   /v2/resources/creator/sale-events:
     get:
       summary: Fetch a list of your sale events
@@ -2651,6 +2699,10 @@ components:
           type: integer
           x-stoplight:
             id: qt870pthbkpi5
+        ListPrice:
+          $ref: '#/components/schemas/Price'
+        FinalPrice:
+          $ref: '#/components/schemas/Price'
     RichText:
       title: RichText
       x-stoplight:
@@ -2798,6 +2850,44 @@ components:
           type: integer
           x-stoplight:
             id: y3phpy9xiq90a
+    BundleEntry:
+      title: BundleEntry
+      x-stoplight:
+        id: hwhm4t3bnolli
+      type: object
+      properties:
+        entry_id:
+          type: integer
+          x-stoplight:
+            id: qqoc52yui5tg7
+        bundle_id:
+          type: integer
+          x-stoplight:
+            id: s08n1ctiicm6y
+        content_type:
+          type: string
+          x-stoplight:
+            id: pmy5qis64c5th
+        content_id:
+          type: integer
+          x-stoplight:
+            id: vfkbaf314rc81
+        created_at:
+          type: integer
+          x-stoplight:
+            id: iqw6c2yx846jp
+        accepted_at:
+          type: integer
+          x-stoplight:
+            id: 2jg7k4iqnnf4i
+        ListPrice:
+          $ref: '#/components/schemas/Price'
+        FinalPrice:
+          $ref: '#/components/schemas/Price'
+        Resource:
+          $ref: '#/components/schemas/Resource'
+        Addon:
+          $ref: '#/components/schemas/Addon'
   requestBodies: {}
   securitySchemes:
     token:
