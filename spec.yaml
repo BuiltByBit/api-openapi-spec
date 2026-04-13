@@ -1243,7 +1243,8 @@ paths:
   /v2/resources/creator/bundles/entries:
     get:
       summary: Fetch a list of your bundle entries
-      tags: []
+      tags:
+        - resources/creator
       responses:
         '200':
           description: OK
@@ -1328,7 +1329,8 @@ paths:
   /v2/resources/creator/sale-events/entries:
     get:
       summary: Fetch a list of your sale event entries
-      tags: []
+      tags:
+        - resources/creator
       responses:
         '200':
           description: OK
@@ -1607,7 +1609,8 @@ paths:
   /v2/resources/creator/coupons/entries:
     get:
       summary: Fetch a list of your coupon entries
-      tags: []
+      tags:
+        - resources/creator
       responses:
         '200':
           description: OK
@@ -1714,7 +1717,8 @@ paths:
   /v2/resources/creator/batch:
     get:
       summary: Fetch a list of your batches edits
-      tags: []
+      tags:
+        - resources/creator
       responses:
         '200':
           description: OK
@@ -1756,7 +1760,8 @@ paths:
           description: A comma-separated list of batch IDs to filter on. No filter is applied if empty.
     post:
       summary: Submit a new batch edit
-      tags: []
+      tags:
+        - resources/creator
       responses:
         '200':
           description: OK
