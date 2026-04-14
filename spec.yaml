@@ -2299,82 +2299,31 @@ components:
           type: string
           x-stoplight:
             id: 6imus6gmqu7tn
-        list_price:
-          type: number
-          x-stoplight:
-            id: ccxb6cl670du8
-        list_price_formatted:
-          type: string
-          x-stoplight:
-            id: zvgipr34l9yv7
-        final_price:
-          type: number
-          x-stoplight:
-            id: yo4zke2lcac6l
-        final_price_formatted:
-          type: string
-          x-stoplight:
-            id: bypnjlevon8u9
+        ListPrice:
+          $ref: '#/components/schemas/Price'
+        FinalPrice:
+          $ref: '#/components/schemas/Price'
         discounts:
-          type: array
           x-stoplight:
-            id: g4djxkdvgkxuu
-          items:
-            x-stoplight:
-              id: r6x6zbrv6s90q
-            type: object
-            properties:
-              amount:
-                type: number
-                x-stoplight:
-                  id: xferie0tbawb8
-              formatted:
-                type: string
-                x-stoplight:
-                  id: r3zlzx1omaqc8
+            id: ichhirx9vegdj
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/Price'
     CartSummary:
       title: CartSummary
       x-stoplight:
         id: 7vftixajz8wum
       type: object
-      required:
-        - list_price
-        - list_price_formatted
-        - final_price
-        - final_price_formatted
-        - currency
       properties:
-        list_price:
-          type: number
-          x-stoplight:
-            id: cb3jp1b4c7o60
-          description: The combined listed price of all items in the cart (ie. the original prices without any discounts applied).
-        list_price_formatted:
-          type: string
-          x-stoplight:
-            id: viqvi29vgo81h
-          description: "The list price formatted as a string using the given currency.\r\nA list price of 5 would be formatted as `$5.00`."
-        final_price:
-          type: number
-          x-stoplight:
-            id: 2ary8hl7lag9s
-          description: 'The combined final price of all items in the cart (ie. with discounts applied). This is the subtotal the user would pay upon checkout initiation, minus any applicable sales tax.'
-        final_price_formatted:
-          type: string
-          x-stoplight:
-            id: clz01pfy72j3o
-          description: "The final price formatted as a string using the given currency.\r\nA final price of 5 would be formatted as `$5.00`."
-        currency:
-          type: string
-          x-stoplight:
-            id: vhcjzo79pzldi
-          example: USD
-          description: "The currency code (ISO 4217) of the prices in this summary.\r\nWill be USD for all transactions through BuiltByBit."
         notice:
           type: string
           x-stoplight:
             id: arvcnn9amx7ok
           description: A message to display to the user as a notice regarding their current cart items. We may use this to inform the user that they have a previous pending checkout which is yet to be fulfilled (either because the payment is still pending or because they closed out of the checkout).
+        ListPrice:
+          $ref: '#/components/schemas/Price'
+        FinalPrice:
+          $ref: '#/components/schemas/Price'
     ListStats:
       title: ListStats
       x-stoplight:
