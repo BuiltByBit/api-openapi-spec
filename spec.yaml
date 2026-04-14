@@ -18,9 +18,22 @@ tags:
   - name: free
   - name: health
   - name: oauth2
+    x-page-title: OAuth2
   - name: resources/buyer
+    x-page-title: Resources/Buyer
   - name: resources/creator
+    x-page-title: Resources/Creator
+  - name: resources/creator/bundles
+    parent: resources/creator
+    x-page-title: Bundles
+  - name: resources/creator/coupons
+    parent: resources/creator
+    x-page-title: Coupons
+  - name: resources/creator/sale-events
+    parent: resources/creator
+    x-page-title: Sale Events
   - name: resources/discovery
+    x-page-title: Resources/Discovery
 paths:
   /oauth2/token:
     post:
@@ -1201,6 +1214,7 @@ paths:
       summary: Fetch a list of your bundles
       tags:
         - resources/creator
+        - resources/creator/bundles
       responses:
         '200':
           description: OK
@@ -1245,6 +1259,7 @@ paths:
       summary: Fetch a list of your bundle entries
       tags:
         - resources/creator
+        - resources/creator/bundles
       responses:
         '200':
           description: OK
@@ -1288,6 +1303,7 @@ paths:
       summary: Fetch a list of your sale events
       tags:
         - resources/creator
+        - resources/creator/sale-events
       responses:
         '200':
           description: OK
@@ -1331,6 +1347,7 @@ paths:
       summary: Fetch a list of your sale event entries
       tags:
         - resources/creator
+        - resources/creator/sale-events
       responses:
         '200':
           description: OK
@@ -1457,6 +1474,7 @@ paths:
       summary: Fetch a list of your coupons
       tags:
         - resources/creator
+        - resources/creator/coupons
       responses:
         '200':
           description: OK
@@ -1499,6 +1517,7 @@ paths:
       summary: Create a new coupon
       tags:
         - resources/creator
+        - resources/creator/coupons
       responses:
         '200':
           description: OK
@@ -1611,6 +1630,7 @@ paths:
       summary: Fetch a list of your coupon entries
       tags:
         - resources/creator
+        - resources/creator/coupons
       responses:
         '200':
           description: OK
