@@ -2458,11 +2458,18 @@ components:
       x-stoplight:
         id: nyfzf8yo4xr80
       type: object
+      description: |-
+        Supported 'with' hints:
+        - Resource: the resource this addon belongs to
       properties:
         addon_id:
           type: integer
           x-stoplight:
             id: il7su36pygfzx
+        resource_id:
+          type: integer
+          x-stoplight:
+            id: nlfuuym623c1k
         title:
           type: string
           x-stoplight:
@@ -2493,6 +2500,8 @@ components:
           $ref: '#/components/schemas/Price'
         FinalPrice:
           $ref: '#/components/schemas/Price'
+        Resource:
+          $ref: '#/components/schemas/Resource'
     Event:
       title: Event
       x-stoplight:
