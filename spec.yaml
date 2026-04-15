@@ -1213,7 +1213,6 @@ paths:
     get:
       summary: Fetch a list of your bundles
       tags:
-        - resources/creator
         - resources/creator/bundles
       responses:
         '200':
@@ -1258,7 +1257,6 @@ paths:
     get:
       summary: Fetch a list of your bundle entries
       tags:
-        - resources/creator
         - resources/creator/bundles
       responses:
         '200':
