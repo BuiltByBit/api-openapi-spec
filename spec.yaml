@@ -14,6 +14,7 @@ servers:
     url: 'https://api.builtbybit.com/'
 tags:
   - name: analytics
+  - name: deployments
   - name: events
   - name: free
   - name: health
@@ -1853,6 +1854,90 @@ paths:
                           - string
                           - array
                         items: {}
+  /v2/deployments/upgrade:
+    post:
+      summary: Upgrade a short-lived token
+      tags:
+        - deployments
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    x-stoplight:
+                      id: sa40b4ryvtqtq
+                    enum:
+                      - success
+                  data:
+                    type: object
+                    x-stoplight:
+                      id: m9d8sbnchp6at
+                    properties:
+                      token:
+                        type: string
+                        x-stoplight:
+                          id: 1lxjwh0m6s2ie
+                      oauth2_client:
+                        type: string
+                        x-stoplight:
+                          id: 1ocwr8tffvisg
+                      oauth2_secret:
+                        type: string
+                        x-stoplight:
+                          id: qfjhvsovyv3ng
+                      preauthorize:
+                        type: object
+                        x-stoplight:
+                          id: fblre81tijs9l
+                        properties:
+                          access_token:
+                            type: string
+                            x-stoplight:
+                              id: 8njcqzl5jvxcm
+                          expires_in:
+                            type: integer
+                            x-stoplight:
+                              id: 1on2vxzqw6v40
+                          refresh_token:
+                            type: string
+                            x-stoplight:
+                              id: 4afqcwziwp9o2
+                          scope:
+                            type: string
+                            x-stoplight:
+                              id: pjxn27l995icp
+                          token_type:
+                            type: string
+                            x-stoplight:
+                              id: 4s20opk9vet1a
+      operationId: post-v2-deployments-upgrade
+      x-stoplight:
+        id: ghbjy9uq3jfx3
+      security:
+        - token: []
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                preauthorize:
+                  type: boolean
+                  x-stoplight:
+                    id: payx433zsr15n
+                  description: Whether or not to pre-authorize OAuth2 credentials for the deployment token owner.
+                  default: false
+                scopes:
+                  type: string
+                  x-stoplight:
+                    id: b7f6hxf9pefnu
+                  description: A space-separated list of scopes to request if pre-authorizing.
+      description: ''
 externalDocs:
   description: Find out more about Swagger
   url: 'http://swagger.io'
