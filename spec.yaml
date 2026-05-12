@@ -234,6 +234,17 @@ paths:
             type: boolean
           in: query
           name: no_dependencies
+          description: Whether or not to exclude resources with dependencies listed.
+        - schema:
+            type: string
+          in: query
+          name: excluded_resource_ids
+          description: A comma-separated list of resource IDs to exclude. No filter will be applied if empty.
+        - schema:
+            type: string
+          in: query
+          name: excluded_creator_ids
+          description: A comma-separated list of creator IDs to exclude. No filter will be applied if empty.
       description: "Supported 'with' hints:\r\n- `filters`: include dynamic filter information in the response.\r\n- See 'Resource' model for additional 'with' hints."
       tags:
         - resources/discovery
