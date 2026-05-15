@@ -24,6 +24,9 @@ tags:
     x-page-title: Resources/Buyer
   - name: resources/creator
     x-page-title: Resources/Creator
+  - name: resources/creator/batch
+    x-parent: resources/creator
+    x-page-title: Batch editing
   - name: resources/creator/bundles
     x-parent: resources/creator
     x-page-title: Bundles
@@ -33,8 +36,11 @@ tags:
   - name: resources/creator/sale-events
     x-parent: resources/creator
     x-page-title: Sale Events
-  - name: resources/discovery
-    x-page-title: Resources/Discovery
+  - name: resources/discover
+    x-page-title: Resources/Discover
+  - name: resources/discover/cart
+    x-parent: resources/discover
+    x-page-title: Cart
 paths:
   /oauth2/token:
     post:
@@ -247,7 +253,7 @@ paths:
           description: A comma-separated list of creator IDs to exclude. No filter will be applied if empty.
       description: "Supported 'with' hints:\r\n- `filters`: include dynamic filter information in the response.\r\n- See 'Resource' model for additional 'with' hints."
       tags:
-        - resources/discovery
+        - resources/discover
       security:
         - token: []
     parameters: []
@@ -300,7 +306,7 @@ paths:
           name: with
           description: A comma-separated list of submodels to include.
       tags:
-        - resources/discovery
+        - resources/discover
       description: "Supported 'with' hints:\r\n- Children: includes all subcategories and their children"
       security:
         - token: []
@@ -347,7 +353,7 @@ paths:
         - $ref: '#/components/parameters/with'
       description: "Supported 'with' hints:\r\n- Resource: the resource the license is for if content_type = `resource`"
       tags:
-        - resources/discovery
+        - resources/discover
       security:
         - oauth2: []
   /v2/resources/discover/cart/view:
@@ -392,7 +398,7 @@ paths:
         id: eikr4b3wx2qem
       description: ''
       tags:
-        - resources/discovery
+        - resources/discover/cart
       security:
         - oauth2: []
   /v2/resources/discover/cart/add:
@@ -437,7 +443,7 @@ paths:
                       type: integer
         description: "A list of content to add to the user's cart. The outer list is keyed by the content type and the inner list are the content IDs.\r\n\r\nFor instance, if adding a resource with the ID 555, the body becomes:\r\n```json\r\n{\"add\": {\"resource\": [555]}}\r\n```"
       tags:
-        - resources/discovery
+        - resources/discover/cart
       security:
         - oauth2: []
   /v2/resources/discover/cart/checkout:
@@ -492,7 +498,7 @@ paths:
             schema:
               $ref: '#/components/schemas/Empty'
       tags:
-        - resources/discovery
+        - resources/discover/cart
       security:
         - oauth2: []
   /v2/resources/discover/cart/remove:
@@ -529,7 +535,7 @@ paths:
                   x-stoplight:
                     id: ja4uc5cg03559
       tags:
-        - resources/discovery
+        - resources/discover/cart
       security:
         - oauth2: []
   /v2/resources/discover/cart/coupon/add:
@@ -566,7 +572,7 @@ paths:
                   x-stoplight:
                     id: 4ojoigmv6ehl1
       tags:
-        - resources/discovery
+        - resources/discover/cart
       security:
         - oauth2: []
     parameters: []
@@ -604,7 +610,7 @@ paths:
                   x-stoplight:
                     id: mlueurz12lym0
       tags:
-        - resources/discovery
+        - resources/discover/cart
       security:
         - oauth2: []
   /v2/events:
@@ -1312,7 +1318,6 @@ paths:
     get:
       summary: Fetch a list of your sale events
       tags:
-        - resources/creator
         - resources/creator/sale-events
       responses:
         '200':
@@ -1356,7 +1361,6 @@ paths:
     get:
       summary: Fetch a list of your sale event entries
       tags:
-        - resources/creator
         - resources/creator/sale-events
       responses:
         '200':
@@ -1483,7 +1487,6 @@ paths:
     get:
       summary: Fetch a list of your coupons
       tags:
-        - resources/creator
         - resources/creator/coupons
       responses:
         '200':
@@ -1526,7 +1529,6 @@ paths:
     post:
       summary: Create a new coupon
       tags:
-        - resources/creator
         - resources/creator/coupons
       responses:
         '200':
@@ -1639,7 +1641,6 @@ paths:
     get:
       summary: Fetch a list of your coupon entries
       tags:
-        - resources/creator
         - resources/creator/coupons
       responses:
         '200':
@@ -1748,7 +1749,7 @@ paths:
     get:
       summary: Fetch a list of your batches edits
       tags:
-        - resources/creator
+        - resources/creator/batch
       responses:
         '200':
           description: OK
@@ -1791,7 +1792,7 @@ paths:
     post:
       summary: Submit a new batch edit
       tags:
-        - resources/creator
+        - resources/creator/batch
       responses:
         '200':
           description: OK
