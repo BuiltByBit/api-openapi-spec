@@ -41,6 +41,9 @@ tags:
   - name: resources/discover/cart
     x-parent: resources/discover
     x-page-title: Cart
+  - name: resources/embed
+    x-page-title: Resources/Embed
+  
 paths:
   /oauth2/token:
     post:
@@ -1441,11 +1444,9 @@ paths:
           name: resource_ids
           description: A comma-separated list of resource IDs to filter on. No filter is applied if empty.
           style: form
-  /v2/resources/buyer/latest:
+  /v2/resources/embed/latest:
     get:
       summary: Fetches the latest versions & license information
-      tags:
-        - resources/buyer
       responses:
         '200':
           description: OK
@@ -1472,7 +1473,7 @@ paths:
                         type: boolean
                         x-stoplight:
                           id: l5kjdeuasezzj
-      operationId: get-v2-resources-buyer-latest
+      operationId: get-v2-resources-embed-latest
       x-stoplight:
         id: z2obo5xmlssl1
       security:
@@ -1483,6 +1484,9 @@ paths:
           in: query
           name: nonce
           description: '32 character hash provided by an anti-piracy placeholder of the NONCE type. Must be from a resource download (cannot be an addon download’s nonce, etc).'
+      tags:
+        - resources/embed
+    parameters: []
   /v2/resources/creator/coupons:
     get:
       summary: Fetch a list of your coupons
@@ -1950,6 +1954,97 @@ paths:
                     id: b7f6hxf9pefnu
                   description: A space-separated list of scopes to request if pre-authorizing.
       description: ''
+  /v2/resources/embed/download:
+    post:
+      summary: Submit a new download request
+      tags:
+        - resources/embed
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    x-stoplight:
+                      id: tff1v9q6hmuaz
+                    enum:
+                      - success
+                  data:
+                    type: object
+                    x-stoplight:
+                      id: gttw71oxpvtmc
+                    properties:
+                      request:
+                        $ref: '#/components/schemas/DownloadRequest'
+      operationId: post-v2-resources-embed-download
+      x-stoplight:
+        id: s4z1rvddmo5wv
+      security:
+        - token: []
+      description: "Supported content types:\r\n- 'resource_version'\r\n- 'api_asset'"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - nonce
+                - content_type
+                - content_id
+              properties:
+                nonce:
+                  type: string
+                  x-stoplight:
+                    id: en5yzy9rql7hf
+                content_type:
+                  type: string
+                  x-stoplight:
+                    id: vpt6xh012cadg
+                content_id:
+                  type: integer
+                  x-stoplight:
+                    id: 9ca2t84ofck5t
+    get:
+      summary: Fetch the status of a download request
+      tags:
+        - resources/embed
+      responses:
+        '200':
+          description: OK
+          headers: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    x-stoplight:
+                      id: k64eiks21w9ie
+                    enum:
+                      - success
+                  data:
+                    type: object
+                    x-stoplight:
+                      id: 4keoengwafhx0
+                    properties:
+                      status:
+                        $ref: '#/components/schemas/DownloadStatus'
+      operationId: get-v2-resources-embed-download
+      x-stoplight:
+        id: 91tvd6cd1au67
+      security:
+        - token: []
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: token
+          description: The token provided when submitting a download request.
+          required: true
+  /2/resources/embed/download/poll: {}
 externalDocs:
   description: Find out more about Swagger
   url: 'http://swagger.io'
@@ -3099,6 +3194,50 @@ components:
           $ref: '#/components/schemas/Addon'
         Bundle:
           $ref: '#/components/schemas/Bundle'
+    DownloadRequest:
+      title: DownloadRequest
+      x-stoplight:
+        id: 6boevaquo14l2
+      type: object
+      properties:
+        download_request_id:
+          type: integer
+          x-stoplight:
+            id: z6baz63i9udyo
+        content_type:
+          type: string
+          x-stoplight:
+            id: frcsm50vdvhph
+        content_id:
+          type: integer
+          x-stoplight:
+            id: owix1glw5uvmy
+        user_id:
+          type: integer
+          x-stoplight:
+            id: f8isx4gucnmeq
+        token:
+          type: string
+          x-stoplight:
+            id: 1vj7r96ijkvox
+        expires:
+          type: integer
+          x-stoplight:
+            id: hi7dowe54f9d7
+    DownloadStatus:
+      title: DownloadResponse
+      x-stoplight:
+        id: qc3ai0naipzva
+      type: object
+      properties:
+        retry:
+          type: boolean
+          x-stoplight:
+            id: 50o4464lwv8aq
+        url:
+          type: string
+          x-stoplight:
+            id: 8jnp7b7asrbwx
   requestBodies: {}
   securitySchemes:
     token:
