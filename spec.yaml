@@ -43,7 +43,6 @@ tags:
     x-page-title: Cart
   - name: resources/embed
     x-page-title: Resources/Embed
-  
 paths:
   /oauth2/token:
     post:
@@ -1101,6 +1100,11 @@ paths:
           name: resource_ids
           description: A comma-separated list of resource IDs to filter on. No filter is applied if empty.
           style: form
+        - schema:
+            type: array
+          in: query
+          name: buyer_ids
+          description: A comma-separated list of buyer IDs to filter on. No filter is applied if empty.
   /v2/resources/creator/versions:
     get:
       summary: Fetch a list of your resources' versions
