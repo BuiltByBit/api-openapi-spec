@@ -1490,6 +1490,7 @@ paths:
           description: '32 character hash provided by an anti-piracy placeholder of the NONCE type. Must be from a resource download (cannot be an addon download’s nonce, etc).'
       tags:
         - resources/embed
+      description: 'See: https://builtbybit.com/help/developers/resource-apis/embed/'
     parameters: []
   /v2/resources/creator/coupons:
     get:
@@ -1958,9 +1959,90 @@ paths:
                     id: b7f6hxf9pefnu
                   description: A space-separated list of scopes to request if pre-authorizing.
       description: ''
-  /v2/resources/embed/download:
-    post:
-      summary: Submit a new download request
+  /v2/resources/discover/download/direct/initiate:
+    get:
+      summary: Initiate a direct download request
+      tags:
+        - resources/discover
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    x-stoplight:
+                      id: 8qjmwfitzl0qn
+                    enum:
+                      - success
+                  data:
+                    type: object
+                    properties:
+                      request:
+                        $ref: '#/components/schemas/DownloadRequest'
+      operationId: get-v2-resources-discover-download-direct-initiate
+      x-stoplight:
+        id: wczwtopx8puhg
+      description: 'See: https://builtbybit.com/help/developers/discovery-api/downloading-and-one-click/'
+      security:
+        - oauth2: []
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: content_type
+          required: true
+          description: Either 'resource' or 'resource_version'
+        - schema:
+            type: integer
+          in: query
+          name: content_id
+          required: true
+  /v2/resources/discover/download/direct/status:
+    get:
+      summary: Fetch the status of a direct download request
+      tags:
+        - resources/discover
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    x-stoplight:
+                      id: a12mbdqnlwwmf
+                    enum:
+                      - success
+                  data:
+                    type: object
+                    x-stoplight:
+                      id: rjxvxc4ru42yf
+                    properties:
+                      status:
+                        $ref: '#/components/schemas/DownloadStatus'
+      operationId: get-v2-resources-discover-download-direct-poll
+      x-stoplight:
+        id: bec0502hhlkm3
+      description: 'See: https://builtbybit.com/help/developers/discovery-api/downloading-and-one-click/'
+      security:
+        - oauth2: []
+      requestBody:
+        content: {}
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: token
+          description: The download request token returned from an initiate request.
+    parameters: []
+  /v2/resources/embed/download/initiate:
+    get:
+      summary: Initiate a download request
       tags:
         - resources/embed
       responses:
@@ -1973,44 +2055,41 @@ paths:
                 properties:
                   result:
                     x-stoplight:
-                      id: tff1v9q6hmuaz
+                      id: anhn5ubpkcfyt
                     enum:
                       - success
                   data:
                     type: object
                     x-stoplight:
-                      id: gttw71oxpvtmc
+                      id: i9kpu35fsja8q
                     properties:
                       request:
                         $ref: '#/components/schemas/DownloadRequest'
-      operationId: post-v2-resources-embed-download
+      operationId: get-v2-resources-embed-download-initiate
       x-stoplight:
-        id: s4z1rvddmo5wv
+        id: clyb8sb9p0djv
       security:
         - token: []
-      description: "Supported content types:\r\n- 'resource_version'\r\n- 'api_asset'"
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              required:
-                - nonce
-                - content_type
-                - content_id
-              properties:
-                nonce:
-                  type: string
-                  x-stoplight:
-                    id: en5yzy9rql7hf
-                content_type:
-                  type: string
-                  x-stoplight:
-                    id: vpt6xh012cadg
-                content_id:
-                  type: integer
-                  x-stoplight:
-                    id: 9ca2t84ofck5t
+      description: 'See: https://builtbybit.com/help/developers/resource-apis/embed/'
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: content_type
+          required: true
+          description: 'Either ''resource'', ''resource_version'', ''api_asset'''
+        - schema:
+            type: integer
+          in: query
+          name: content_id
+          required: true
+        - schema:
+            type: string
+          in: query
+          name: nonce
+          required: true
+          description: '32 character hash provided by an anti-piracy placeholder of the NONCE type. Must be from a resource download (cannot be an addon download’s nonce, etc).'
+  /v2/resources/embed/download/status:
     get:
       summary: Fetch the status of a download request
       tags:
@@ -2018,7 +2097,6 @@ paths:
       responses:
         '200':
           description: OK
-          headers: {}
           content:
             application/json:
               schema:
@@ -2026,29 +2104,28 @@ paths:
                 properties:
                   result:
                     x-stoplight:
-                      id: k64eiks21w9ie
+                      id: 74st7byljvmfg
                     enum:
                       - success
                   data:
                     type: object
                     x-stoplight:
-                      id: 4keoengwafhx0
+                      id: xcnza5407jmq7
                     properties:
                       status:
                         $ref: '#/components/schemas/DownloadStatus'
-      operationId: get-v2-resources-embed-download
+      operationId: get-v2-resources-embed-download-status
       x-stoplight:
-        id: 91tvd6cd1au67
+        id: 7adv392i58h8y
       security:
         - token: []
+      description: 'See: https://builtbybit.com/help/developers/resource-apis/embed/'
       parameters:
         - schema:
             type: string
           in: query
           name: token
-          description: The token provided when submitting a download request.
-          required: true
-  /2/resources/embed/download/poll: {}
+          description: The download request token returned from an initiate request.
 externalDocs:
   description: Find out more about Swagger
   url: 'http://swagger.io'
