@@ -2126,6 +2126,103 @@ paths:
           in: query
           name: token
           description: The download request token returned from an initiate request.
+  /v2/resources/creator/addons/update:
+    post:
+      summary: Post an addon update
+      tags:
+        - resources/creator
+      responses: {}
+      operationId: post-v2-resources-creator-addons-update
+      x-stoplight:
+        id: v0ebb2r8uile9
+      security:
+        - token: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - addon_id
+                - file
+                - version_name
+              properties:
+                addon_id:
+                  type: integer
+                  x-stoplight:
+                    id: ty78bvr9jcoa3
+                file:
+                  type: object
+                  x-stoplight:
+                    id: bj27na9uv6o9u
+                  required:
+                    - name
+                    - data
+                  properties:
+                    name:
+                      type: string
+                      x-stoplight:
+                        id: 0donv8fmvnmu3
+                      description: The name of the file (including extension).
+                    data:
+                      type: string
+                      x-stoplight:
+                        id: 7in4dkx1ihv4s
+                      description: The base64 encoded file data.
+                version_name:
+                  type: string
+                  x-stoplight:
+                    id: 1arsrqb9oz08w
+        description: |-
+          Creates a new version for the addon. The uploaded file must be encoded using base64 as part of the JSON request body shown below.
+
+          The request body (including the base64 encoded file data) cannot exceed 100MB. This roughly equates to a 67MB upload limit for the raw file when taking into account base64 encoding losses.
+  /v2/resources/creator/api-assets/update:
+    post:
+      summary: Post an API asset update
+      tags:
+        - resources/creator
+      responses: {}
+      operationId: post-v2-resources-creator-api-assets-update
+      x-stoplight:
+        id: a3oq9ufnxt653
+      security:
+        - token: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - api_asset_id
+                - file
+              properties:
+                api_asset_id:
+                  type: string
+                  x-stoplight:
+                    id: usepopbra506f
+                file:
+                  type: object
+                  x-stoplight:
+                    id: 965s1vvntdbr9
+                  required:
+                    - name
+                    - data
+                  properties:
+                    name:
+                      type: string
+                      x-stoplight:
+                        id: aw5csx3cc365l
+                      description: The name of the file (including extension).
+                    data:
+                      type: string
+                      x-stoplight:
+                        id: r5j4wleek3dsm
+                      description: The base64 encoded file data.
+        description: |-
+          Creates a new version for the API asset. The uploaded file must be encoded using base64 as part of the JSON request body shown below.
+
+          The request body (including the base64 encoded file data) cannot exceed 100MB. This roughly equates to a 67MB upload limit for the raw file when taking into account base64 encoding losses.
 externalDocs:
   description: Find out more about Swagger
   url: 'http://swagger.io'
