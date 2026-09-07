@@ -2223,6 +2223,61 @@ paths:
           Creates a new version for the API asset. The uploaded file must be encoded using base64 as part of the JSON request body shown below.
 
           The request body (including the base64 encoded file data) cannot exceed 100MB. This roughly equates to a 67MB upload limit for the raw file when taking into account base64 encoding losses.
+  /v2/resources/discover/download/plan:
+    get:
+      summary: Fetch a download plan
+      tags:
+        - resources/discover
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    x-stoplight:
+                      id: 21hfwvzfexvq4
+                    enum:
+                      - success
+                  data:
+                    type: object
+                    x-stoplight:
+                      id: bmykdensz0kww
+                    properties:
+                      plan:
+                        $ref: '#/components/schemas/DownloadPlan'
+      operationId: get-v2-resources-discover-download-plan
+      x-stoplight:
+        id: l2n9hkp59ez8a
+      security:
+        - token: []
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: content_type
+          required: true
+          description: Only 'resource' is currently supported.
+        - schema:
+            type: integer
+          in: query
+          name: content_id
+          required: true
+        - schema:
+            type: string
+          in: query
+          name: supported
+          description: A comma-separated list of supported features (like archive formats).
+        - schema:
+            type: string
+          in: query
+          name: current_server_sofware
+        - schema:
+            type: string
+          in: query
+          name: current_server_version
 externalDocs:
   description: Find out more about Swagger
   url: 'http://swagger.io'
@@ -3416,6 +3471,85 @@ components:
           type: string
           x-stoplight:
             id: 8jnp7b7asrbwx
+    DownloadPlan:
+      title: DownloadPlan
+      x-stoplight:
+        id: 7giuqnr10mgsh
+      type: object
+      required:
+        - level
+      properties:
+        level:
+          x-stoplight:
+            id: 37cu2v7lxk4p3
+          enum:
+            - full
+            - partial
+            - manual
+        actions:
+          type: array
+          x-stoplight:
+            id: t7n5sf2r2bkmn
+          items:
+            $ref: '#/components/schemas/DownloadPlanAction'
+        notices:
+          type: array
+          x-stoplight:
+            id: t3fjvjkc5p6to
+          items:
+            $ref: '#/components/schemas/DownloadPlanNotice'
+        unsupported:
+          type: array
+          x-stoplight:
+            id: 7x1664z1kvmol
+          description: 'A list of features which were unsupported (not passed into the ''supported'' query paramter) which were needed, resulting in the plan level being downgraded to ''manual''.'
+          items:
+            x-stoplight:
+              id: j2dq6vu86j175
+            type: string
+        requires_empty_server:
+          type: string
+          x-stoplight:
+            id: 7pifmmlvmdhef
+          description: Whether the server files must be empty before exeucting the plan steps.
+    DownloadPlanAction:
+      title: DownloadPlanAction
+      x-stoplight:
+        id: havbrhcd79uct
+      type: object
+      required:
+        - type
+      properties:
+        type:
+          x-stoplight:
+            id: l7tau0e28hzs6
+          enum:
+            - copy
+            - copy_dir
+            - open_zip
+            - server_restart
+        src:
+          type: string
+          x-stoplight:
+            id: wk4u2tuep42o9
+          description: The source file/directory.
+        dst:
+          type: string
+          x-stoplight:
+            id: srmj1ev4o7ezv
+          description: A destination file/directory relative to the server root.
+    DownloadPlanNotice:
+      title: DownloadPlanNotice
+      x-stoplight:
+        id: kdsrcoxgjvyyt
+      type: object
+      required:
+        - text
+      properties:
+        text:
+          type: string
+          x-stoplight:
+            id: nx2h224oy1tzl
   requestBodies: {}
   securitySchemes:
     token:
