@@ -3538,6 +3538,13 @@ components:
           x-stoplight:
             id: srmj1ev4o7ezv
           description: A destination file/directory relative to the server root.
+        actions:
+          type: array
+          x-stoplight:
+            id: ti95r5527xvdk
+          description: A set of subactions to execute in the context of this action.
+          items:
+            $ref: '#/components/schemas/DownloadPlanAction'
     DownloadPlanNotice:
       title: DownloadPlanNotice
       x-stoplight:
