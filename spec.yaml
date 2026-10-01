@@ -2342,8 +2342,9 @@ components:
         - 'Creator': the resource creator/owner
         - 'Category': the resource category 
         - 'Description': the resource description (rendered HTML and BBCode)
+        - 'Dependencies': the resource dependencies section (rendered HTML and BBCode)
         - 'LatestReviews': list of the 10 latest reviews
-        - 'Filter values': filter values set by the creator
+        - 'FilterValues': filter values set by the creator
       properties:
         resource_id:
           type: integer
@@ -2417,6 +2418,8 @@ components:
             type: array
             items:
               $ref: '#/components/schemas/Addon'
+        Dependencies:
+          $ref: '#/components/schemas/RichText'
     Member:
       title: User
       x-stoplight:
