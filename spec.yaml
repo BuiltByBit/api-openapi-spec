@@ -2196,6 +2196,8 @@ paths:
               required:
                 - api_asset_id
                 - file
+                - version_string
+                - oldest_resource_version_id
               properties:
                 api_asset_id:
                   type: string
@@ -2219,6 +2221,18 @@ paths:
                       x-stoplight:
                         id: r5j4wleek3dsm
                       description: The base64 encoded file data.
+                version_string:
+                  type: string
+                  x-stoplight:
+                    id: fkmte3g9dj1xx
+                description:
+                  type: string
+                  x-stoplight:
+                    id: 6yimq01viptfb
+                oldest_resource_version_id:
+                  type: integer
+                  x-stoplight:
+                    id: ajmffhxe97jia
         description: |-
           Creates a new version for the API asset. The uploaded file must be encoded using base64 as part of the JSON request body shown below.
 
