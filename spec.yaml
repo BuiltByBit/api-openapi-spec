@@ -2287,7 +2287,93 @@ paths:
         - schema:
             type: string
           in: query
-          name: current_server_sofware
+          name: current_server_software
+        - schema:
+            type: string
+          in: query
+          name: current_server_version
+  /v2/resources/discover/download/plan/batch:
+    get:
+      summary: Batch fetch download plans
+      tags:
+        - resources/discover
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - result
+                properties:
+                  result:
+                    x-stoplight:
+                      id: uaszwchup9ift
+                    enum:
+                      - success
+                  data:
+                    type: object
+                    x-stoplight:
+                      id: f1dsy8guk1jlt
+                    properties:
+                      plans:
+                        type: array
+                        x-stoplight:
+                          id: hnbfzv8snx9p1
+                        items:
+                          x-stoplight:
+                            id: oygvnm6v1722q
+                          type: object
+                          required:
+                            - content_type
+                            - content_id
+                          properties:
+                            content_type:
+                              type: string
+                              x-stoplight:
+                                id: z5d7478bt6q6l
+                            content_id:
+                              type: integer
+                              x-stoplight:
+                                id: xedv009d0tsg5
+                            error:
+                              type: object
+                              x-stoplight:
+                                id: d4gpsal18kv4p
+                              properties:
+                                code:
+                                  type: string
+                                  x-stoplight:
+                                    id: 603t6k9qm08q5
+                                message:
+                                  type: string
+                                  x-stoplight:
+                                    id: no047e5wuv855
+                            plan:
+                              $ref: '#/components/schemas/DownloadPlan'
+      operationId: get-v2-resources-discover-download-plan-batch
+      x-stoplight:
+        id: rndiqh6u7ai7g
+      security:
+        - token: []
+      parameters:
+        - schema:
+            type: string
+            example: 'resource:5,resource_version:15'
+          in: query
+          name: content_pairs
+          description: 'A comma-separated list of content pairs. A content pair is a content_type and content_id separated by a : (colon).'
+          required: true
+        - schema:
+            type: string
+          in: query
+          name: supported
+          description: A comma-separated list of supported features (like archive formats).
+        - schema:
+            type: string
+          in: query
+          name: current_server_software
         - schema:
             type: string
           in: query
