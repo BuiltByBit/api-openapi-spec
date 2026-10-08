@@ -253,6 +253,11 @@ paths:
           in: query
           name: excluded_creator_ids
           description: A comma-separated list of creator IDs to exclude. No filter will be applied if empty.
+        - schema:
+            type: integer
+          in: query
+          name: min_referrer_rate
+          description: A minimum referral rate (percent) to filter on. Defaults to 0%.
       description: "Supported 'with' hints:\r\n- `filters`: include dynamic filter information in the response.\r\n- See 'Resource' model for additional 'with' hints."
       tags:
         - resources/discover
@@ -2442,6 +2447,14 @@ components:
           type: string
           x-stoplight:
             id: j0kfd8dneoz28
+        referrer_url:
+          type: string
+          x-stoplight:
+            id: h9464zbcou725
+        referrer_rate:
+          type: integer
+          x-stoplight:
+            id: at2ouxvbs2vme
         creator_id:
           type: integer
         published_at:
