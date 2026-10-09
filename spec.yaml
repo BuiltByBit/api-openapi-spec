@@ -2383,6 +2383,37 @@ paths:
             type: string
           in: query
           name: current_server_version
+  /v2/members/self:
+    get:
+      summary: Fetch self member information
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    x-stoplight:
+                      id: vlv6w489i7xrf
+                    enum:
+                      - success
+                  data:
+                    type: object
+                    x-stoplight:
+                      id: 84p7yvvmujwhz
+                    properties:
+                      self:
+                        $ref: '#/components/schemas/Member'
+      operationId: get-v2-members-self
+      x-stoplight:
+        id: 6yobvgsf0l2kp
+      security:
+        - token: []
+        - oauth2: []
+      description: 'See: https://builtbybit.com/help/developers/global-apis/members/'
 externalDocs:
   description: Find out more about Swagger
   url: 'http://swagger.io'
@@ -2527,6 +2558,10 @@ components:
       properties:
         user_id:
           type: string
+        user_url:
+          type: string
+          x-stoplight:
+            id: rzmf1890forzr
         username:
           type: string
           x-stoplight:
@@ -2535,10 +2570,26 @@ components:
           type: string
           x-stoplight:
             id: kfuewsgtcuq74
-        avatar_url:
+        avatar_url_large:
           type: string
           x-stoplight:
             id: 6l5qmbkfzte0c
+        avatar_url_medium:
+          type: string
+          x-stoplight:
+            id: md2kapvhnvlc0
+        avatar_url_small:
+          type: string
+          x-stoplight:
+            id: unxkbxmr5vwu4
+        banned:
+          type: boolean
+          x-stoplight:
+            id: ng02mvfrlgrbz
+        discord_id:
+          type: string
+          x-stoplight:
+            id: syg6gd6yi2fu9
     SaleEventEntry:
       title: SaleEventEntry
       x-stoplight:
