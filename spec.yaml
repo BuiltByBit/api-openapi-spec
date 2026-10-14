@@ -258,6 +258,11 @@ paths:
           in: query
           name: min_referrer_rate
           description: A minimum referral rate (percent) to filter on. Defaults to 0%.
+        - schema:
+            type: boolean
+          in: query
+          name: strict_mug
+          description: Whether to enforce strict MUG compliance title/summary keyword exclusions.
       description: "Supported 'with' hints:\r\n- `filters`: include dynamic filter information in the response.\r\n- See 'Resource' model for additional 'with' hints."
       tags:
         - resources/discover
