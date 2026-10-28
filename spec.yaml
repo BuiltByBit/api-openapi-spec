@@ -263,6 +263,11 @@ paths:
           in: query
           name: strict_mug
           description: Whether to enforce strict MUG compliance title/summary keyword exclusions.
+        - schema:
+            type: string
+          in: query
+          name: excluded_category_ids
+          description: A comma-separated list of category IDs to exclude. No filter will be applied if empty.
       description: "Supported 'with' hints:\r\n- `filters`: include dynamic filter information in the response.\r\n- See 'Resource' model for additional 'with' hints."
       tags:
         - resources/discover
@@ -317,6 +322,11 @@ paths:
           in: query
           name: with
           description: A comma-separated list of submodels to include.
+        - schema:
+            type: string
+          in: query
+          name: excluded_category_ids
+          description: A comma-separated list of category IDs to exclude. No filter will be applied if empty.
       tags:
         - resources/discover
       description: "Supported 'with' hints:\r\n- Children: includes all subcategories and their children"
